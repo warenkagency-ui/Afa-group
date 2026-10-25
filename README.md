@@ -76,7 +76,7 @@ La conversion lit `source-images/` et écrit les WebP (1800 px maximum) dans `si
 
 1. Placez ce projet sous Git et envoyez uniquement les éléments autorisés par `.gitignore`.
 2. Lancez les contrôles à chaque pull request : `node --check` pour les deux fichiers JavaScript, vérification d’images, puis tests navigateur/liens quand ils seront configurés.
-3. Configurez l’hébergeur pour publier **le dossier `site/` comme racine de publication**. Utilisez des aperçus de pull request/branche pour validation ; déployez en production après fusion.
+3. Netlify est configuré par `netlify.toml` pour publier **le dossier `site/`** sans commande de build. Utilisez des aperçus de pull request/branche pour validation ; déployez en production après fusion.
 4. Ne reconvertissez pas toutes les images à chaque déploiement. Publiez les WebP validés dans `site/images/`.
 5. Gardez les originaux et archives en sauvegarde privée, hors du dossier de publication.
 
