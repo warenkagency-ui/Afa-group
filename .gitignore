@@ -1,0 +1,14 @@
+# Source photos and artwork masters: keep outside Git.
+/source-images/
+/brand/source/
+
+# Local backups and package archives.
+/backups/
+*.zip
+
+# Local Python and operating-system files.
+/.venv/
+__pycache__/
+*.py[cod]
+Thumbs.db
+.DS_Store
