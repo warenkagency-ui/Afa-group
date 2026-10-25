@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AFA-GROUP — Architecture et design</title>
+<meta name="description" content="AFA-GROUP conçoit des espaces de vie et de travail au Cameroun. Découvrez nos projets d’architecture contemporaine.">
+<meta name="theme-color" content="#142A36">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hdr" id="hdr">
+  <button class="ib" id="btnMenu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+    <svg width="28" height="16" viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 2h28M0 8h18M0 14h28"/></svg>
+  </button>
+  <button class="mini" id="miniTop" aria-label="Retour en haut"><img src="assets/afa-logo.svg" alt=""></button>
+  <nav class="header-nav" aria-label="Navigation principale">
+    <a href="#projects">Projets</a>
+    <a href="#approach">Notre approche</a>
+    <a class="header-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
+  </nav>
+  <button class="ib" id="btnFilter" aria-label="Filtrer les projets" aria-expanded="false" aria-controls="filter">
+    <svg width="22" height="18" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 4h22M0 14h22"/><circle cx="7" cy="4" r="2.6" fill="currentColor"/><circle cx="15" cy="14" r="2.6" fill="currentColor"/></svg>
+    <i class="dot" id="fdot" hidden></i>
+  </button>
+  <div class="prog"><i id="prog"></i></div>
+</header>
+
+<section class="mast hero" id="top">
+  <img class="hero-image" src="images/Immeubles de bureau/Siège orange BK/ENSEMBLE.webp" alt="" fetchpriority="high">
+  <div class="hero-shade"></div>
+  <div class="wrapword" id="wrapword">
+    <p class="tag caps" id="tagline"></p>
+    <h1 class="word" id="word">Des espaces pensés<br><em>pour la vie.</em></h1>
+    <p class="hero-copy">Architecture contemporaine, attentive aux lieux, aux usages et aux personnes qui les font vivre.</p>
+    <a class="hero-cta" href="#contact">Discuter de votre projet <span aria-hidden="true">↗</span></a>
+  </div>
+</section>
+
+<main class="sheet" id="feed">
+  <section class="projects-section" id="projects" aria-labelledby="projects-title">
+    <ul class="discs caps" id="discs" aria-label="Filtrer les projets par catégorie"></ul>
+    <div class="intro">
+      <h2 id="projects-title">Des projets, des possibles.</h2>
+      <div class="intro-r caps"><span id="count"></span><button class="pill caps" id="clear" hidden></button></div>
+    </div>
+    <div id="list"></div>
+    <p class="empty" id="empty" hidden>Aucun projet dans cette catégorie pour le moment.</p>
+  </section>
+
+  <section class="approach" id="approach" aria-labelledby="approach-title">
+    <div class="approach-intro">
+      <p class="approach-kicker caps">Notre approche</p>
+      <h2 id="approach-title">Du premier échange<br>au projet réalisé.</h2>
+      <p>Un accompagnement attentif, à chaque étape du projet.</p>
+    </div>
+    <div class="approach-steps">
+      <article><span>01</span><div><h3>Écoute & esquisse</h3><p>Comprendre vos besoins, le lieu et le contexte avant les premières propositions.</p></div></article>
+      <article><span>02</span><div><h3>Conception</h3><p>Faire évoluer les idées en une proposition architecturale claire et adaptée.</p></div></article>
+      <article><span>03</span><div><h3>Coordination</h3><p>Préciser les choix de conception et coordonner les éléments du projet.</p></div></article>
+      <article><span>04</span><div><h3>Suivi de projet</h3><p>Vous accompagner dans les prochaines étapes de la réalisation.</p></div></article>
+    </div>
+  </section>
+
+  <footer class="foot" id="contact">
+    <div class="contact-layout">
+      <div class="contact-copy">
+        <p class="contact-kicker caps">Parlons de votre projet</p>
+        <h3>Chaque projet commence par une conversation.</h3>
+        <p class="contact-lead">Quelques détails sur votre idée nous aideront à préparer notre premier échange.</p>
+        <div class="mail"><code id="mailTxt">contact@afa-group.example</code><button class="btn caps" id="copy" type="button">Copier l’adresse</button></div>
+        <p class="contact-hint">Nous vous répondrons au sujet de votre demande.</p>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <div class="contact-fields">
+          <div class="contact-field">
+            <label for="contactName">Nom complet</label>
+            <input id="contactName" name="name" type="text" autocomplete="name" placeholder="Votre nom" required>
+          </div>
+          <div class="contact-field">
+            <label for="contactEmail">Adresse e-mail</label>
+            <input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="vous@exemple.com" required>
+          </div>
+          <div class="contact-field">
+            <label for="contactType">Type de projet</label>
+            <select id="contactType" name="projectType" required>
+              <option value="" selected disabled>Choisir un type</option>
+              <option>Villa / Résidentiel</option>
+              <option>Tertiaire / Bureaux</option>
+              <option>Rénovation</option>
+              <option>Design d’intérieur</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="contact-field">
+            <label for="contactBudget">Budget estimé <span>(facultatif)</span></label>
+            <select id="contactBudget" name="budget">
+              <option value="" selected>À définir</option>
+              <option>Moins de 25 millions FCFA</option>
+              <option>25 à 75 millions FCFA</option>
+              <option>Plus de 75 millions FCFA</option>
+            </select>
+          </div>
+          <div class="contact-field contact-field-wide">
+            <label for="contactMessage">Parlez-nous de votre projet</label>
+            <textarea id="contactMessage" name="message" rows="3" placeholder="Lieu, besoins, calendrier…" required></textarea>
+          </div>
+        </div>
+        <button class="contact-submit" type="submit">Préparer mon message <span aria-hidden="true">↗</span></button>
+        <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+        <p class="contact-note">Votre application de messagerie s’ouvrira pour envoyer la demande. Aucune donnée n’est enregistrée sur ce site.</p>
+      </form>
+    </div>
+    <details>
+      <summary>Coordonnées</summary>
+      <div class="cols"><div><b>Cameroun</b>Adresse, téléphone et réseaux sociaux à renseigner ici.</div></div>
+    </details>
+    <details>
+      <summary>L’agence</summary>
+      <div class="cols"><div><b>AFA-GROUP</b>Agence d’architecture et de design basée au Cameroun : immeubles de bureaux, immeubles d’habitation, résidences, équipements culturels et de loisirs.</div></div>
+    </details>
+    <div class="foot-end"><span>© AFA-GROUP</span><button class="btn caps" id="toTop">Retour en haut</button></div>
+  </footer>
+</main>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="menu" id="menu" inert aria-label="Menu">
+  <div class="menu-top">
+    <img class="menu-logo" src="assets/afa-logo.svg" alt="AFA-GROUP — Architecture et Design">
+    <button class="ib" id="menuClose" aria-label="Fermer le menu"><svg width="22" height="22" viewBox="0 0 22 22" stroke="currentColor" stroke-width="2"><path d="M2 2l18 18M20 2L2 20"/></svg></button>
+  </div>
+  <nav>
+    <button data-go="projects">Projets</button>
+    <button data-go="approach">Notre approche</button>
+    <button data-go="contact">Contact</button>
+  </nav>
+  <div class="menu-bot"><span id="menuMail">contact@afa-group.example</span><button class="btn caps" id="theme">Thème : système</button></div>
+</aside>
+
+<section class="filter" id="filter" inert aria-label="Filtrer les projets">
+  <h3>Filtrer par type</h3>
+  <p>Choisissez une catégorie pour affiner la liste.</p>
+  <div class="chips" id="chips"></div>
+  <button class="go" id="apply">Voir les projets</button>
+</section>
+
+<section class="detail" id="detail" inert aria-label="Détails du projet">
+  <button class="ib d-close" id="dClose" aria-label="Fermer le projet"><svg width="20" height="20" viewBox="0 0 22 22" stroke="currentColor" stroke-width="2"><path d="M2 2l18 18M20 2L2 20"/></svg></button>
+  <div class="d-in" id="dIn"></div>
+</section>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
