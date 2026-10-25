@@ -63,13 +63,13 @@ La conversion lit `source-images/` et écrit les WebP (1800 px maximum) dans `si
 
 ## Git, sécurité et dépendances
 
-- Vérifiez `.gitignore` avant le premier `git add`. Les originaux, maîtres du logo, archives et environnements locaux ne doivent pas être publiés. Les fichiers dans `site/images/` sont les seuls visuels du dépôt/deploiement.
+- Vérifiez `.gitignore` avant le premier `git add`. Les originaux, maîtres du logo, archives, secrets et environnements locaux ne doivent pas être publiés. Les visuels du site à publier sont limités au logo dans `site/assets/` et aux images optimisées dans `site/images/`.
 - Activez l’authentification à deux facteurs, la protection de branche, les pull requests, la détection de secrets et Dependabot sur GitHub. Ne mettez jamais de secrets ou identifiants dans le dépôt.
 - Actuellement, le site n’a pas de dépendance JavaScript installée. Pillow est facultatif et ne sert qu’à la conversion. Si l’outil devient régulier, déclarez une version de Pillow dans `requirements-dev.txt` et utilisez un audit Python (par exemple `pip-audit`) dans les mises à jour.
 - Si npm est ajouté à l’avenir, versionnez `package.json` et `package-lock.json`, utilisez `npm ci` en CI et examinez les mises à jour `npm audit` avant fusion.
 - Activez les alertes Dependabot pour les écosystèmes effectivement déclarés (pip, npm et GitHub Actions le cas échéant). Examinez les pull requests de mise à jour, exécutez les tests et mettez à jour de manière ciblée ; n’utilisez pas d’upgrade forcé automatique en production.
 - Comme la vérification des images évalue `site/data.js` avec Node.js, n’exécutez pas cet outil sur le contenu non fiable d’une pull request dans un workflow privilégié ayant accès à des secrets.
-- Le déploiement est statique et n’a ni base de données, ni authentification, ni endpoint de formulaire. Le formulaire `mailto:` ouvre le logiciel de messagerie du visiteur. Vérifiez les en-têtes HTTPS et de sécurité sur l’hébergeur ; Google Fonts est actuellement chargé depuis un service tiers.
+- Le déploiement est statique et n’a ni base de données, ni authentification, ni endpoint de formulaire. Le formulaire `mailto:` ouvre le logiciel de messagerie du visiteur. `netlify.toml` configure les en-têtes de sécurité de base ; vérifiez-les sur le site publié et activez HTTPS sur l’hébergeur. Google Fonts est actuellement chargé depuis un service tiers.
 - Pour des contrôles, utilisez votre propre domaine ou aperçu. Commencez avec des scans passifs de configuration/headers ; n’effectuez pas de tests intrusifs ou de charge sur des systèmes tiers.
 
 ## CI/CD et mise en ligne
