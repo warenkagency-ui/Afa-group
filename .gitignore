@@ -6,9 +6,24 @@
 /backups/
 *.zip
 
+# Local credentials and environment-specific configuration.
+.env
+.env.*
+!.env.example
+
+# Local build, dependency, and deployment output.
+/.netlify/
+/node_modules/
+/dist/
+/coverage/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
 # Local Python and operating-system files.
 /.venv/
 __pycache__/
 *.py[cod]
 Thumbs.db
+Desktop.ini
 .DS_Store
