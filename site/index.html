@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#142A36">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,6 +19,7 @@
   <button class="mini" id="miniTop" aria-label="Retour en haut"><img src="assets/afa-logo.svg" alt=""></button>
   <nav class="header-nav" aria-label="Navigation principale">
     <a href="#projects">Projets</a>
+    <a href="#about">À propos</a>
     <a href="#approach">Notre approche</a>
     <a class="header-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a>
   </nav>
@@ -51,6 +52,40 @@
     <p class="empty" id="empty" hidden>Aucun projet dans cette catégorie pour le moment.</p>
   </section>
 
+  <section class="about" id="about" aria-labelledby="about-title">
+    <div class="about-head">
+      <div class="about-heading">
+        <p class="about-kicker caps">À propos de nous <span>·</span> AFA-GROUP</p>
+        <h2 id="about-title">L’architecture commence par <em>une vision.</em></h2>
+      </div>
+      <p class="about-vision">Nous aspirons à bâtir un univers dynamique, ouvert aux idées nouvelles et aux collaborations. Notre objectif est de faire d’AFA un espace où les ambitions se transforment en projets concrets et où chaque initiative contribue à construire l’avenir.</p>
+    </div>
+    <div class="about-feature">
+      <figure class="about-image">
+        <img src="images/Immeuble d_habitation/RESIDENCE EMERAUDE/photo_5810127072952175129_y.webp" alt="Perspective architecturale de la résidence FEBE Village" loading="lazy" decoding="async">
+        <figcaption><span>Notre regard</span><span>Des lieux pensés pour durer</span></figcaption>
+      </figure>
+      <div class="about-values">
+        <article>
+          <span class="about-number">01</span>
+          <div><h3>Des expertises qui se complètent</h3><p>Architectes, ingénieurs, chefs de projet et spécialistes du suivi unissent leurs compétences pour concilier vision, exigences techniques et objectifs fonctionnels.</p></div>
+        </article>
+        <article>
+          <span class="about-number">02</span>
+          <div><h3>Une conception sur mesure</h3><p>Chaque client, chaque terrain et chaque programme présente des exigences particulières. Nous développons des solutions personnalisées qui tiennent compte de vos attentes, de votre budget, de votre mode de vie et des spécificités de votre environnement.</p></div>
+        </article>
+        <article>
+          <span class="about-number">03</span>
+          <div><h3>La créativité au service des usages</h3><p>Nous explorons de nouvelles idées, des lignes épurées et des concepts créatifs pour concevoir des espaces esthétiques, fonctionnels et adaptés aux usages d’aujourd’hui.</p></div>
+        </article>
+        <article>
+          <span class="about-number">04</span>
+          <div><h3>Une attention à l’environnement</h3><p>Nous intégrons les enjeux environnementaux dès la conception, en privilégiant des choix architecturaux réfléchis, une utilisation raisonnée des ressources et une adaptation au climat et au contexte local.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="approach" id="approach" aria-labelledby="approach-title">
     <div class="approach-intro">
       <p class="approach-kicker caps">Notre approche</p>
@@ -71,8 +106,11 @@
         <p class="contact-kicker caps">Parlons de votre projet</p>
         <h3>Chaque projet commence par une conversation.</h3>
         <p class="contact-lead">Quelques détails sur votre idée nous aideront à préparer notre premier échange.</p>
-        <div class="mail"><code id="mailTxt">contact@afa-group.example</code><button class="btn caps" id="copy" type="button">Copier l’adresse</button></div>
-        <p class="contact-hint">Nous vous répondrons au sujet de votre demande.</p>
+        <div class="contact-links" aria-label="Coordonnées de l’agence">
+          <a id="addressLink" href="https://maps.google.com/?q=Rue+CEPER+Yaounde"><span>Adresse</span><strong id="addressTxt">Yaoundé, Rue CEPER</strong></a>
+          <a id="phoneLink" href="tel:+237678239011"><span>Téléphone</span><strong id="phoneTxt">+237 678239011</strong></a>
+          <a id="mailLink" href="mailto:akambaariel@gmail.com"><span>E-mail</span><strong id="mailTxt">akambaariel@gmail.com</strong></a>
+        </div>
       </div>
       <form class="contact-form" id="contactForm">
         <div class="contact-fields">
@@ -116,7 +154,7 @@
     </div>
     <details>
       <summary>Coordonnées</summary>
-      <div class="cols"><div><b>Cameroun</b>Adresse, téléphone et réseaux sociaux à renseigner ici.</div></div>
+      <div class="cols"><div><b>Yaoundé, Cameroun</b>Rue CEPER<br><a href="tel:+237678239011">+237 678239011</a><br><a href="mailto:akambaariel@gmail.com">akambaariel@gmail.com</a></div></div>
     </details>
     <details>
       <summary>L’agence</summary>
@@ -135,6 +173,7 @@
   </div>
   <nav>
     <button data-go="projects">Projets</button>
+    <button data-go="about">À propos</button>
     <button data-go="approach">Notre approche</button>
     <button data-go="contact">Contact</button>
   </nav>
