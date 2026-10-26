@@ -3,8 +3,7 @@
    placés à côté de index.html. Le premier fichier de la liste `images` sert de couverture.
    Les champs vides (client, surface, statut...) sont simplement masqués. */
 
-/* TODO : remplacez ces coordonnées par les vraies avant la mise en ligne */
-const SITE={name:'AFA-GROUP',tag:'Architecture et design · Cameroun',email:'contact@afa-group.example'};
+const SITE={name:'AFA-GROUP',tag:'Architecture et design · Cameroun',address:'Yaoundé, Rue CEPER',phone:'+237 678239011',email:'akambaariel@gmail.com'};
 
 const CATS=['Immeubles de bureaux','Immeubles d’habitation','Résidences','Culture & loisirs'];
 
@@ -61,7 +60,7 @@ const PROJECTS=[
   architect:'AKAMBA Ariel, ONAC 632 (chef de projet) · TCHAPET SAMEN Maurice (junior)',
   status:'En construction. Gros œuvre en cours',
   type:'fold',seed:61,hue:160,skies:[SK.dawn,SK.day,SK.mist],
-  images:F('Immeuble d_habitation/RESIDENCE EMERAUDE',['concept.png','photo_5810127072952175129_y.jpg','photo_5810127072952175130_y.jpg','photo_5810127072952175131_y.jpg','photo_5810127072952175132_y.jpg','photo_5810127072952175133_y.jpg','photo_5810127072952175134_y.jpg','photo_5810127072952175135_y.jpg']),
+  images:F('Immeuble d_habitation/RESIDENCE EMERAUDE',['photo_5810127072952175129_y.jpg','concept.png','photo_5810127072952175130_y.jpg','photo_5810127072952175131_y.jpg','photo_5810127072952175132_y.jpg','photo_5810127072952175133_y.jpg','photo_5810127072952175134_y.jpg','photo_5810127072952175135_y.jpg']),
   desc:'Du T2 au penthouse T5 avec piscine, répartis sur quatre niveaux. Parking, jardins, guérite et buanderie complètent le programme.',
   programme:'Un appartement T4 et un T3 au RDC et au R+1. Un T3 et deux T2 au R+2. Un penthouse T5 avec piscine au R+3. Aménagement extérieur : parking, jardins, local groupe électrogène, guérite, buanderie.',
   note:'Une architecture contemporaine inspirée des formes organiques et fluides. De vastes balcons aux lignes ondulantes animent les façades et créent un mouvement harmonieux. Volumes courbes, garde-corps vitrés et matériaux clairs composent une image élégante et légère.'},
@@ -111,7 +110,7 @@ const PROJECTS=[
   client:'Privé',typology:'Complexe hôtelier et touristique',surface:'3 ha',status:'En étude',
   mission:'Études architecturales, techniques et technologiques',
   type:'arches',seed:97,hue:150,skies:[SK.dawn,SK.day,SK.mist],
-  images:F('Culture, tourisme, loisirs/Chutes de Nachtigal',['Cascade et bungalows sur pilotis.png','Refuge moderne au bord de l’eau.png','Image1_003.jpg','Image1_005.jpg','Image1_006.jpg','Image1_007.jpg','Image1_010.jpg','Image1_012.jpg','Image1_013.jpg']),
+  images:F('Culture, tourisme, loisirs/Chutes de Nachtigal',['Image1_003.jpg','Cascade et bungalows sur pilotis.png','Refuge moderne au bord de l’eau.png','Image1_005.jpg','Image1_006.jpg','Image1_007.jpg','Image1_010.jpg','Image1_012.jpg','Image1_013.jpg']),
   desc:'Sur les rives du fleuve Mbam, près du pont, un complexe hôtelier avec espace nautique, restaurant, salle polyvalente d’environ 1 000 personnes et bungalows T1 et T2.',
   programme:'Espace nautique de loisirs, restaurant avec vue sur le fleuve, salle polyvalente d’environ 1 000 personnes, bungalows de type T1 et T2.',
   note:'Chaque espace offre des perspectives ouvertes sur le paysage. Le projet préserve et valorise la flore existante, notamment les mangroves aux abords du site, et garantit l’accessibilité aux personnes à mobilité réduite. Pierre, bois et autres matériaux naturels et locaux réduisent l’empreinte environnementale.'},
@@ -119,7 +118,7 @@ const PROJECTS=[
  {id:'abab-land',title:'ABAB Land',loc:'Cameroun',cat:'Culture & loisirs',
   typology:'Parc de loisirs',
   type:'arches',seed:101,hue:210,skies:[SK.dusk,SK.day,SK.dawn],
-  images:F('Culture, tourisme, loisirs/ABAB_Land',['Grande roue et pavillons bleus au bord de l’eau.png','Croquis architectural de grande roue et pavillons.png','Image1_002.jpg','Image1_004.jpg','Image1_005.jpg','Image1_015.jpg','IMG-001.jpg','IMG-002.jpg']),
+  images:F('Culture, tourisme, loisirs/ABAB_Land',['Image1_002.jpg','Grande roue et pavillons bleus au bord de l’eau.png','Croquis architectural de grande roue et pavillons.png','Image1_004.jpg','Image1_005.jpg','Image1_015.jpg','IMG-001.jpg','IMG-002.jpg']),
   desc:'Un projet de parc de loisirs qui associe attractions, espaces ouverts et promenade au bord de l’eau.'},
 
  {id:'cdef-kribi',title:'Espace de spectacle et de fêtes CDEF',loc:'Kribi, Cameroun',cat:'Culture & loisirs',

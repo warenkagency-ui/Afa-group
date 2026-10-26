@@ -2,7 +2,7 @@
 let uid=0;
 const R=s=>{let x=s>>>0;return()=>{x=(x*1664525+1013904223)>>>0;return x/4294967296}};
 function art(p,i,gen){
-  if(!gen&&p.images&&p.images.length)return `<img data-fb="${p.id}:${i}" src="${encodeURI(p.images[i%p.images.length])}" alt="${p.title}, vue ${i%p.images.length+1}" loading="lazy" decoding="async" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block">`;
+  if(!gen&&p.images&&p.images.length)return `<img data-fb="${p.id}:${i}" data-src="${encodeURI(p.images[i%p.images.length])}" alt="${p.title}, vue ${i%p.images.length+1}" loading="lazy" fetchpriority="low" decoding="async" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block">`;
   const id='a'+(++uid),r=R(p.seed*31+i*7+3),[T,B,SUN,go]=p.skies[i%p.skies.length],h=p.hue;
   const L=`hsl(${h} 20% 80%)`,D=`hsl(${h} 24% 32%)`,M=`hsl(${h} 18% 56%)`,G=`hsl(${h} 16% 18%)`,W='#ffd58a';
   const vb=[[0,0,400,400],[60,100,260,260],[140,50,230,230],[0,130,280,280]][i%4];
@@ -66,6 +66,10 @@ let lastFocus=null;
 $$('.brand-name').forEach(e=>e.textContent=SITE.name);
 $('#tagline').textContent=SITE.tag;
 $('#mailTxt').textContent=$('#menuMail').textContent=SITE.email;
+$('#mailLink').href=`mailto:${SITE.email}`;
+$('#addressTxt').textContent=SITE.address;
+$('#phoneTxt').textContent=SITE.phone;
+$('#phoneLink').href=`tel:${SITE.phone.replace(/[^\d+]/g,'')}`;
 $('#discs').innerHTML=CATS.map(c=>`<li><button class="disc" data-cat="${c}">${c}<sup>${PROJECTS.filter(p=>p.cat===c).length}</sup></button></li>`).join('');
 $('#chips').innerHTML=[ALL,...CATS].map(c=>`<button class="chip" data-cat="${c}" aria-pressed="${c===ALL}">${label(c)}</button>`).join('');
 
@@ -84,6 +88,33 @@ $('#list').innerHTML=PROJECTS.map(p=>{
     </div><div class="bar"><i></i></div></article>`;
 }).join('');
 
+function loadNearImages(){
+  const margin=300;
+  const viewport=window.visualViewport;
+  const viewportWidth=viewport?viewport.width:document.documentElement.clientWidth;
+  const viewportHeight=Math.min(viewport?viewport.height:document.documentElement.clientHeight,900);
+  $$('img[data-src]').forEach(image=>{
+    const project=image.closest('.proj');
+    if(project&&!project.classList.contains('open')&&image.parentElement!==$('.rail',project).firstElementChild)return;
+    const rect=image.getBoundingClientRect();
+    if(rect.bottom < -margin||rect.top > viewportHeight+margin||rect.right < -margin||rect.left > viewportWidth+margin)return;
+    image.src=image.dataset.src;
+    image.removeAttribute('data-src');
+  });
+}
+let imageCheckPending=false;
+function scheduleImageLoad(force=false){
+  if(imageCheckPending)return;
+  imageCheckPending=true;
+  requestAnimationFrame(()=>{
+    imageCheckPending=false;
+    if(force||scrollY>50||detail.classList.contains('on'))loadNearImages();
+  });
+}
+window.addEventListener('scroll',scheduleImageLoad,{passive:true});
+document.addEventListener('scroll',scheduleImageLoad,{passive:true,capture:true});
+window.addEventListener('resize',scheduleImageLoad,{passive:true});
+
 /* rails: counter, progress, arrows, mouse drag */
 function syncRail(rail){
   const sl=[...rail.children],left=rail.getBoundingClientRect().left+parseFloat(getComputedStyle(rail).paddingLeft);
@@ -96,7 +127,7 @@ function syncRail(rail){
 }
 $$('.rail').forEach(rail=>{
   let tick=false;
-  rail.addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{tick=false;syncRail(rail)})},{passive:true});
+  rail.addEventListener('scroll',()=>{scheduleImageLoad(true);if(tick)return;tick=true;requestAnimationFrame(()=>{tick=false;syncRail(rail)})},{passive:true});
   syncRail(rail);
   let sx=0,sl=0,down=false,moved=false;
   rail.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;moved=false;sx=e.clientX;sl=rail.scrollLeft});
@@ -216,6 +247,7 @@ function openDetail(id,btn){
     ${p.note?`<blockquote class="d-quote">${p.note}</blockquote>`:''}
     <button class="d-next" data-next="${nx.id}"><span>Suivant : ${nx.title}</span><span aria-hidden="true">→</span></button>`;
   detail.scrollTop=0;openPanel(detail,btn);
+  scheduleImageLoad(true);
   $('#dClose').focus({preventScroll:true});
 }
 $('#dIn').addEventListener('click',e=>{const n=e.target.closest('[data-next]');if(n){const id=n.dataset.next;openDetail(id,lastFocus)}});
@@ -243,12 +275,6 @@ $('#contactForm').addEventListener('submit',e=>{
   status.textContent='Votre application de messagerie va s’ouvrir avec votre demande préremplie. Vérifiez le message puis envoyez-le depuis votre messagerie.';
   window.location.href=`mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
-$('#copy').onclick=async()=>{
-  const b=$('#copy');
-  try{await navigator.clipboard.writeText(SITE.email);b.textContent='Copié'}
-  catch(_){const r=document.createRange();r.selectNodeContents($('#mailTxt'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Copiez (Ctrl+C)'}
-  setTimeout(()=>b.textContent='Copier l’adresse',1800);
-};
 const modes=['system','light','dark'],modeLabels=['système','clair','sombre'];let mode=0;
 try{const m=modes.indexOf(localStorage.getItem('afa-theme'));if(m>0)mode=m}catch(_){}
 function applyTheme(){
@@ -262,6 +288,7 @@ $('#toTop').onclick=$('#miniTop').onclick=()=>window.scrollTo({top:0,behavior:re
 
 /* scroll behaviour: solid header, hide on scroll down, masthead parallax, progress */
 const hdr=$('#hdr'),sheet=$('#feed'),wrap=$('#wrapword'),mast=$('#top'),prog=$('#prog');
+const smallScreen=matchMedia('(max-width:680px)').matches;
 let lastY=0,ticking=false;
 function onScroll(){
   if(ticking)return;ticking=true;
@@ -271,7 +298,7 @@ function onScroll(){
     prog.style.transform=`scaleX(${max>0?Math.min(1,y/max):0})`;
     const solid=sheet.getBoundingClientRect().top<=hdr.offsetHeight;
     hdr.classList.toggle('solid',solid);
-    if(!reduce){const k=Math.min(1,y/mh);wrap.style.transform=`translateY(${(y*.32).toFixed(1)}px)`;wrap.style.opacity=(1-k*.85).toFixed(2)}
+    if(!reduce&&!smallScreen){const k=Math.min(1,y/mh);wrap.style.transform=`translateY(${(y*.32).toFixed(1)}px)`;wrap.style.opacity=(1-k*.85).toFixed(2)}
     hdr.classList.toggle('hide',solid&&y>lastY&&y>160);
     lastY=y;
   });
@@ -280,6 +307,8 @@ addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onS
 
 const hashCat=CATS.find(c=>c.toLowerCase()===location.hash.slice(1).toLowerCase());
 setFilter(hashCat||ALL);onScroll();
+const initialCover=$('.proj:not([hidden]) .rail .slide:first-child img');
+if(initialCover&&initialCover.dataset.src){initialCover.src=initialCover.dataset.src;initialCover.removeAttribute('data-src')}
 
 /* Image manquante : on affiche l’illustration générée au lieu d’une icône cassée */
 document.addEventListener('error',e=>{const t=e.target;if(!t.matches||!t.matches('img[data-fb]'))return;const[id,i]=t.dataset.fb.split(':');const p=PROJECTS.find(x=>x.id===id);if(!p)return;const d=document.createElement('div');d.style.cssText='width:100%;height:100%';d.innerHTML=art(p,+i,true);t.replaceWith(d)},true);
