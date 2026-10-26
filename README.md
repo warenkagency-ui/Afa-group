@@ -77,13 +77,8 @@ La conversion lit `source-images/` et écrit les WebP (1800 px maximum) dans `si
 1. Placez ce projet sous Git et envoyez uniquement les éléments autorisés par `.gitignore`.
 2. Le workflow GitHub Actions vérifie la syntaxe JavaScript et les références d’images sur chaque pull request et push vers `master`. Après validation d’un push sur `master`, il publie automatiquement le dossier `site/` sur GitHub Pages.
 3. Pour Netlify, `netlify.toml` configure la publication du dossier `site/` sans commande de build. Connectez le dépôt GitHub et choisissez `master` comme branche de production pour activer les aperçus de pull request et les déploiements automatiques.
-4. Pour Vercel, importez le dépôt GitHub et configurez le projet comme un site statique :
-   - **Framework Preset** : `Other`
-   - **Root Directory** : `./`
-   - **Build Command** : vide, ou désactivée
-   - **Output Directory** : `site`
-   Vercel publiera alors le contenu de `site/` sans étape de build. Ne définissez une commande d’installation que si des dépendances sont ajoutées au projet.
-5. Choisissez l’hébergeur de production souhaité et configurez son domaine et HTTPS. Un push vers `master` peut publier le site sur GitHub Pages, Netlify et Vercel si les trois intégrations sont activées.
+4. Pour Vercel, créez un projet puis ajoutez dans **Settings → Secrets and variables → Actions** les secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` et `VERCEL_PROJECT_ID`. Configurez `site` comme **Root Directory** dans Vercel. Le workflow `.github/workflows/vercel.yml` déploie le projet lié en production au push sur `master`, sans cache de build, et ignore les exécutions devenues obsolètes. `.vercelignore` exclut les originaux, archives et configurations locales du téléversement CLI. Désactivez les déploiements Git automatiques dans Vercel si vous souhaitez que GitHub Actions soit l’unique mécanisme de publication.
+5. Choisissez l’hébergeur de production souhaité et configurez son domaine et HTTPS. Des pushes vers `master` peuvent publier sur GitHub Pages, Netlify et Vercel si chaque intégration est activée.
 6. Ne reconvertissez pas toutes les images à chaque déploiement. Publiez les WebP validés dans `site/images/`, et gardez les originaux et archives dans une sauvegarde privée, hors du dossier de publication.
 
 Pour modifier l’adresse e-mail, le téléphone ou l’adresse de l’agence, mettez à jour `SITE` dans `site/data.js`. Le site statique ne collecte ni n’envoie les demandes lui-même : le formulaire prépare un message et l’ouvre dans le logiciel de messagerie du visiteur.

@@ -1,0 +1,12 @@
+.env*
+.mcp.json
+.git
+.github
+.vercel
+.vercelignore
+backups
+brand
+source-images
+tools
+README.md
+netlify.toml
