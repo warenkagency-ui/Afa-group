@@ -2,7 +2,7 @@
 let uid=0;
 const R=s=>{let x=s>>>0;return()=>{x=(x*1664525+1013904223)>>>0;return x/4294967296}};
 function art(p,i,gen){
-  if(!gen&&p.images&&p.images.length)return `<img data-fb="${p.id}:${i}" data-src="${encodeURI(p.images[i%p.images.length])}" alt="${p.title}, vue ${i%p.images.length+1}" loading="lazy" fetchpriority="low" decoding="async" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block">`;
+  if(!gen&&p.images&&p.images.length)return `<img data-fb="${p.id}:${i}" data-src="${assetUrl(p.images[i%p.images.length])}" alt="${p.title}, vue ${i%p.images.length+1}" loading="lazy" fetchpriority="low" decoding="async" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block">`;
   const id='a'+(++uid),r=R(p.seed*31+i*7+3),[T,B,SUN,go]=p.skies[i%p.skies.length],h=p.hue;
   const L=`hsl(${h} 20% 80%)`,D=`hsl(${h} 24% 32%)`,M=`hsl(${h} 18% 56%)`,G=`hsl(${h} 16% 18%)`,W='#ffd58a';
   const vb=[[0,0,400,400],[60,100,260,260],[140,50,230,230],[0,130,280,280]][i%4];
@@ -54,6 +54,7 @@ const ARROW=d=>`<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stro
 /* ---------- Build the page ---------- */
 const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const assetUrl=path=>path.split('/').map(encodeURIComponent).join('/');
 /* fiche technique : seuls les champs renseignés dans data.js sont affichés */
 const FACTS=[['client','Client'],['typology','Type'],['surface','Surface'],['status','Statut'],['architect','Architecte'],['mission','Mission']];
 const facts=p=>`<dl class="facts">${FACTS.filter(([k])=>p[k]).map(([k,l])=>`<div><dt>${l}</dt><dd>${p[k]}</dd></div>`).join('')}</dl>`;
