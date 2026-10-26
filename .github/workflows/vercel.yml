@@ -1,0 +1,93 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-production
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check JavaScript syntax and project images
+        run: |
+          node --check site/app.js
+          node --check site/data.js
+          python tools/optimiser_images.py --verifier
+
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI without cache
+        run: npm install --global vercel@latest
+
+      - name: Skip if a newer commit is on master
+        id: latest
+        shell: bash
+        run: |
+          latest_commit="$(git ls-remote origin refs/heads/master | cut -f1)"
+          if [ -z "$latest_commit" ]; then
+            echo "Could not determine the latest master commit."
+            exit 1
+          fi
+          if [ "$latest_commit" = "$GITHUB_SHA" ]; then
+            echo "is_latest=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Skipping stale deployment for $GITHUB_SHA; master is now at $latest_commit."
+            echo "is_latest=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify Vercel credentials
+        if: steps.latest.outputs.is_latest == 'true'
+        env:
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        shell: bash
+        run: |
+          for name in VERCEL_ORG_ID VERCEL_PROJECT_ID VERCEL_TOKEN; do
+            if [ -z "${!name}" ]; then
+              echo "Required GitHub secret or variable is missing: $name"
+              exit 1
+            fi
+          done
+
+      - name: Deploy site to Vercel without build cache
+        if: steps.latest.outputs.is_latest == 'true'
+        env:
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prod --force --yes
