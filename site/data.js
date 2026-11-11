@@ -3,7 +3,7 @@
    placés à côté de index.html. Le premier fichier de la liste `images` sert de couverture.
    Les champs vides (client, surface, statut...) sont simplement masqués. */
 
-const SITE={name:'AFA-GROUP',tag:'Architecture et design · Cameroun',address:'Yaoundé, Rue CEPER',phone:'+237 678239011',email:'akambaariel@gmail.com'};
+const SITE={name:'AFA-GROUP',tag:'Architecture et design · Cameroun',address:'Yaoundé, Rue CEPER',phone:'+237 678239011',email:'contact@afa-group.com'};
 
 const CATS=['Immeubles de bureaux','Immeubles d’habitation','Résidences','Culture & loisirs'];
 
